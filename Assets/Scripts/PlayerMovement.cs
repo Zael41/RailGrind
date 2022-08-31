@@ -1,7 +1,9 @@
+using PathCreation.Examples;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static UnityEngine.GraphicsBuffer;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -20,9 +22,12 @@ public class PlayerMovement : MonoBehaviour
     private float fovTargetNormal = 60f;
     private float fovTargetSprint = 80f;
 
+    private GameObject currentRail;
+
     Vector3 velocity;
     bool isGrounded;
     bool isSprinting;
+    bool railGrinding;
 
     // Start is called before the first frame update
     void Start()
@@ -50,6 +55,16 @@ public class PlayerMovement : MonoBehaviour
     void MovementControl(Vector3 move)
     {
         Physics.SyncTransforms();
+        if (railGrinding)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, currentRail.transform.GetChild(1).transform.position, 25 * Time.deltaTime);
+            if (Vector3.Distance(transform.position, currentRail.transform.GetChild(1).transform.position) < 0.5f)
+            {
+                railGrinding = false;
+                //GetComponent<CharacterController>().enabled = true;
+            }
+            return;
+        }
         if (isSprinting && isGrounded)
         {
             //cam.fieldOfView = 90f;
@@ -71,6 +86,8 @@ public class PlayerMovement : MonoBehaviour
 
     void JumpControl()
     {
+        if (railGrinding) return;
+
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);
@@ -79,5 +96,12 @@ public class PlayerMovement : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
 
         characterController.Move(velocity * Time.deltaTime);
+    }
+
+    public void RailGrind(GameObject collider)
+    {
+        currentRail = collider;
+        railGrinding = true;
+        //GetComponent<CharacterController>().enabled = false;
     }
 }

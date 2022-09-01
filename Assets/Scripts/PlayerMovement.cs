@@ -29,6 +29,9 @@ public class PlayerMovement : MonoBehaviour
     bool isSprinting;
     bool railGrinding;
 
+    Vector3 currentDirection;
+    int targetPoint;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -49,6 +52,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 move = Vector3.zero;
         move = transform.right * x + transform.forward * z;
         MovementControl(move);
+        currentDirection = characterController.velocity;
         JumpControl();
     }
 
@@ -57,8 +61,12 @@ public class PlayerMovement : MonoBehaviour
         Physics.SyncTransforms();
         if (railGrinding)
         {
-            transform.position = Vector3.MoveTowards(transform.position, currentRail.transform.GetChild(1).transform.position, 25 * Time.deltaTime);
-            if (Vector3.Distance(transform.position, currentRail.transform.GetChild(1).transform.position) < 0.5f)
+            /*float distanceToStart = Vector3.Distance(transform.position, currentRail.transform.GetChild(0).transform.position);
+            float distanceToEnd = Vector3.Distance(transform.position, currentRail.transform.GetChild(1).transform.position);
+            if (distanceToStart < distanceToEnd) targetPoint = 0;
+            else targetPoint = 1;*/
+            transform.position = Vector3.MoveTowards(transform.position, currentRail.transform.GetChild(targetPoint).transform.position, 25 * Time.deltaTime);
+            if (Vector3.Distance(transform.position, currentRail.transform.GetChild(targetPoint).transform.position) < 0.5f)
             {
                 railGrinding = false;
                 //GetComponent<CharacterController>().enabled = true;
@@ -101,6 +109,18 @@ public class PlayerMovement : MonoBehaviour
     public void RailGrind(GameObject collider)
     {
         currentRail = collider;
+        targetPoint = -1;
+        Vector3 forwardRail = currentRail.transform.GetChild(0).transform.position - currentRail.transform.GetChild(1).transform.position;
+        Vector3 backwardsRail = currentRail.transform.GetChild(1).transform.position - currentRail.transform.GetChild(0).transform.position;
+        Debug.Log(Vector3.Angle(currentDirection, forwardRail));
+        if (Mathf.Abs(Vector3.Angle(currentDirection, forwardRail)) < Mathf.Abs(Vector3.Angle(currentDirection, backwardsRail)))
+        {
+            targetPoint = 0;
+        }
+        else
+        {
+            targetPoint = 1;
+        }
         railGrinding = true;
         //GetComponent<CharacterController>().enabled = false;
     }

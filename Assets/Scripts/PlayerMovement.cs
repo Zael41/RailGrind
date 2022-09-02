@@ -61,15 +61,11 @@ public class PlayerMovement : MonoBehaviour
         Physics.SyncTransforms();
         if (railGrinding)
         {
-            /*float distanceToStart = Vector3.Distance(transform.position, currentRail.transform.GetChild(0).transform.position);
-            float distanceToEnd = Vector3.Distance(transform.position, currentRail.transform.GetChild(1).transform.position);
-            if (distanceToStart < distanceToEnd) targetPoint = 0;
-            else targetPoint = 1;*/
             transform.position = Vector3.MoveTowards(transform.position, currentRail.transform.GetChild(targetPoint).transform.position, 25 * Time.deltaTime);
             if (Vector3.Distance(transform.position, currentRail.transform.GetChild(targetPoint).transform.position) < 0.5f)
             {
                 railGrinding = false;
-                //GetComponent<CharacterController>().enabled = true;
+                velocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);
             }
             return;
         }
@@ -122,6 +118,5 @@ public class PlayerMovement : MonoBehaviour
             targetPoint = 1;
         }
         railGrinding = true;
-        //GetComponent<CharacterController>().enabled = false;
     }
 }

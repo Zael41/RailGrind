@@ -2,6 +2,7 @@ using PathCreation.Examples;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.ProBuilder.Shapes;
 using UnityEngine.SceneManagement;
 using static UnityEngine.GraphicsBuffer;
 
@@ -25,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
     private GameObject currentRail;
 
     Vector3 velocity;
+    Vector3 upAxis;
     bool isGrounded;
     bool isSprinting;
     bool railGrinding;
@@ -41,10 +43,12 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        upAxis = new Vector3(0f, -gravity, 0f);
+        ChangeGravity();
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-        if (isGrounded && velocity.y < 0)
+        if ((isGrounded && velocity.y < 0 && Mathf.Sign(gravity) == -1) || (isGrounded && velocity.y > 0 && Mathf.Sign(gravity) == 1))
         {
-            velocity.y = -2f;
+            velocity.y = 2f * -upAxis.normalized.y;
         }
 
         float x = Input.GetAxis("Horizontal");
@@ -56,6 +60,15 @@ public class PlayerMovement : MonoBehaviour
         JumpControl();
     }
 
+    void ChangeGravity()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            gravity = -gravity;
+            this.transform.Rotate(0.0f, 0.0f, 180.0f, Space.Self);
+        }
+    }
+
     void MovementControl(Vector3 move)
     {
         Physics.SyncTransforms();
@@ -65,7 +78,7 @@ public class PlayerMovement : MonoBehaviour
             if (Vector3.Distance(transform.position, currentRail.transform.GetChild(targetPoint).transform.position) < 0.5f)
             {
                 railGrinding = false;
-                velocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);
+                velocity.y = upAxis.normalized.y * Mathf.Sqrt(jumpHeight * 2 * -upAxis.normalized.y * gravity);
             }
             return;
         }
@@ -94,7 +107,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
-            velocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);
+            velocity.y = upAxis.normalized.y * Mathf.Sqrt(jumpHeight * 2 * -upAxis.normalized.y * gravity);
         }
 
         velocity.y += gravity * Time.deltaTime;

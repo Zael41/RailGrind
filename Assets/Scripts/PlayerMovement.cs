@@ -65,6 +65,7 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
         {
             gravity = -gravity;
+            this.transform.Translate(Vector3.up * 1.75f, Space.Self);
             this.transform.Rotate(0.0f, 0.0f, 180.0f, Space.Self);
         }
     }

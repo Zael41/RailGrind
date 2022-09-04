@@ -7754,6 +7754,8 @@ MonoBehaviour:
   speed: 12
   gravity: -9.81
   jumpHeight: 3
+  dashSpeed: 15
+  dashTime: 0.5
   sprintMultiplier: 1.5
   groundCheck: {fileID: 251257027}
   groundDistance: 0.2

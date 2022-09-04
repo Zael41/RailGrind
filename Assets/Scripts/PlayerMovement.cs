@@ -13,6 +13,8 @@ public class PlayerMovement : MonoBehaviour
     public float speed = 12f;
     public float gravity = -9.81f;
     public float jumpHeight = 3f;
+    public float dashSpeed = 15f;
+    public float dashTime = 0.5f;
     public float sprintMultiplier = 1.5f;
 
     public Transform groundCheck;
@@ -30,6 +32,7 @@ public class PlayerMovement : MonoBehaviour
     bool isGrounded;
     bool isSprinting;
     bool railGrinding;
+    bool doubleJump;
 
     Vector3 currentDirection;
     int targetPoint;
@@ -49,6 +52,7 @@ public class PlayerMovement : MonoBehaviour
         if ((isGrounded && velocity.y < 0 && Mathf.Sign(gravity) == -1) || (isGrounded && velocity.y > 0 && Mathf.Sign(gravity) == 1))
         {
             velocity.y = 2f * -upAxis.normalized.y;
+            doubleJump = true;
         }
 
         float x = Input.GetAxis("Horizontal");
@@ -57,7 +61,7 @@ public class PlayerMovement : MonoBehaviour
         move = transform.right * x + transform.forward * z;
         MovementControl(move);
         currentDirection = characterController.velocity;
-        JumpControl();
+        AirControl();
     }
 
     void ChangeGravity()
@@ -102,7 +106,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void JumpControl()
+    void AirControl()
     {
         if (railGrinding) return;
 
@@ -111,9 +115,30 @@ public class PlayerMovement : MonoBehaviour
             velocity.y = upAxis.normalized.y * Mathf.Sqrt(jumpHeight * 2 * -upAxis.normalized.y * gravity);
         }
 
+        if (Input.GetButtonDown("Jump") && !isGrounded && doubleJump)
+        {
+            velocity.y = upAxis.normalized.y * Mathf.Sqrt(jumpHeight * 2 * -upAxis.normalized.y * gravity);
+            doubleJump = false;
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            StartCoroutine(dashCoroutine());
+        }
+        
         velocity.y += gravity * Time.deltaTime;
 
         characterController.Move(velocity * Time.deltaTime);
+    }
+
+    private IEnumerator dashCoroutine()
+    {
+        velocity.x = this.transform.forward.x * dashSpeed;
+        velocity.z = this.transform.forward.z * dashSpeed;
+        yield return new WaitForSeconds(dashTime);
+        velocity.x -= velocity.x;
+        velocity.z -= velocity.z;
+        yield break;
     }
 
     public void RailGrind(GameObject collider)

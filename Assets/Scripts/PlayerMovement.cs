@@ -31,6 +31,7 @@ public class PlayerMovement : MonoBehaviour
     Vector3 upAxis;
     bool isGrounded;
     bool isSprinting;
+    bool isDashing;
     bool railGrinding;
     bool doubleJump;
 
@@ -53,6 +54,7 @@ public class PlayerMovement : MonoBehaviour
         {
             velocity.y = 2f * -upAxis.normalized.y;
             doubleJump = true;
+            isDashing = false;
         }
 
         float x = Input.GetAxis("Horizontal");
@@ -84,6 +86,8 @@ public class PlayerMovement : MonoBehaviour
             {
                 railGrinding = false;
                 velocity.y = upAxis.normalized.y * Mathf.Sqrt(jumpHeight * 2 * -upAxis.normalized.y * gravity);
+                doubleJump = true;
+                isDashing = false;
             }
             return;
         }
@@ -121,8 +125,9 @@ public class PlayerMovement : MonoBehaviour
             doubleJump = false;
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.LeftShift) && !isDashing && !isGrounded)
         {
+            isDashing = true;
             StartCoroutine(dashCoroutine());
         }
         

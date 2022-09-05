@@ -7,6 +7,9 @@ public class GameController : MonoBehaviour
 {
     public static GameController instance;
 
+    public static int pickupCount;
+    public static bool[] itemsObtained;
+
     void Awake()
     {
         if (instance == null)

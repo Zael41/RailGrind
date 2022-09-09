@@ -12,7 +12,7 @@ public class PickupObjects : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             GameController.pickupCount++;
-            pickupsText.text = GameController.pickupCount + " / " + "18";
+            pickupsText.text = GameController.pickupCount + " / " + "19";
             Destroy(this.gameObject);
         }
     }

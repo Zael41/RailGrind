@@ -22,4 +22,19 @@ public class GameController : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    public void StartGame()
+    {
+        SceneManager.LoadScene("Level1");
+    }
+
+    public void Settings(GameObject settingsMenu)
+    {
+        settingsMenu.SetActive(true);
+    }
+
+    public void ExitGame()
+    {
+        Application.Quit();
+    }
 }

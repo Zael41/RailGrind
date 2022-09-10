@@ -30,9 +30,10 @@ public class TimerUI : MonoBehaviour
         StartCoroutine(UpdateTimer());
     }
 
-    public void EndTimer()
+    public string EndTimer()
     {
         timerGoing = false;
+        return timeCounter.text;
     }
 
     private IEnumerator UpdateTimer()

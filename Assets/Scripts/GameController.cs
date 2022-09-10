@@ -23,6 +23,14 @@ public class GameController : MonoBehaviour
         }
     }
 
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name != "MainMenu")
+        {
+
+        }
+    }
+
     public void StartGame()
     {
         SceneManager.LoadScene("Level1");

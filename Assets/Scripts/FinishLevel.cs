@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class FinishLevel : MonoBehaviour
@@ -30,6 +31,17 @@ public class FinishLevel : MonoBehaviour
             finalTime.text = "Final time: " + endTimer;
 
             pickupsCollected.text = "Pickups collected: " + GameController.pickupCount + " / 19";
+            Cursor.lockState = CursorLockMode.None;
         }
+    }
+
+    public void MenuButton()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
+
+    public void NextButton()
+    {
+        SceneManager.LoadScene("Level2");
     }
 }

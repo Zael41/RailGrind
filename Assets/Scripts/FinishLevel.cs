@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
+using Palmmedia.ReportGenerator.Core.Common;
+using System;
 
 public class FinishLevel : MonoBehaviour
 {
@@ -42,6 +44,10 @@ public class FinishLevel : MonoBehaviour
 
     public void NextButton()
     {
-        SceneManager.LoadScene("Level2");
+        string currentLevel = SceneManager.GetActiveScene().name;
+        currentLevel = currentLevel.Substring(currentLevel.Length - 1, 1);
+        int x = Int32.Parse(currentLevel);
+        string nextLevel = "Level" + (x + 1).ToString();
+        SceneManager.LoadScene(nextLevel);
     }
 }

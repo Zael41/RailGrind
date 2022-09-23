@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 4fa6a6530df3bcf4e8d5a313c45ef42e, type: 2}
   m_LightingSettings: {fileID: 4890085278179872738, guid: ed33368c770db4348abce041ecb8c773, type: 2}
 --- !u!196 &4
 NavMeshSettings:
@@ -5098,7 +5098,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1227374254}
         m_TargetAssemblyTypeName: FinishLevel, Assembly-CSharp
         m_MethodName: NextButton
         m_Mode: 1

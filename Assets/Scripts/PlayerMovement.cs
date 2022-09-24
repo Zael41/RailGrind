@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.ProBuilder.Shapes;
 using UnityEngine.SceneManagement;
+using UnityEngine.SocialPlatforms;
 using static UnityEngine.GraphicsBuffer;
 
 public class PlayerMovement : MonoBehaviour
@@ -56,7 +57,6 @@ public class PlayerMovement : MonoBehaviour
             doubleJump = true;
             isDashing = false;
         }
-
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
         Vector3 move = Vector3.zero;
@@ -130,7 +130,7 @@ public class PlayerMovement : MonoBehaviour
             isDashing = true;
             StartCoroutine(dashCoroutine());
         }
-        
+
         velocity.y += gravity * Time.deltaTime;
 
         characterController.Move(velocity * Time.deltaTime);
@@ -162,5 +162,12 @@ public class PlayerMovement : MonoBehaviour
             targetPoint = 1;
         }
         railGrinding = true;
+    }
+
+    public void GravityField(Transform gravitySource)
+    {
+        gravity = -gravity;
+        this.transform.Translate(Vector3.up * 1.75f, Space.Self);
+        this.transform.Rotate(0.0f, 0.0f, 180.0f, Space.Self);
     }
 }

@@ -31,9 +31,12 @@ public class GameController : MonoBehaviour
         }
     }
 
-    public void StartGame()
+    public void StartGame(GameObject levelSelect)
     {
-        SceneManager.LoadScene("Level1");
+        levelSelect.SetActive(true);
+        GameObject mainMenu = GameObject.Find("MainMenu");
+        mainMenu.SetActive(false);
+        //SceneManager.LoadScene("Level1");
     }
 
     public void Settings(GameObject settingsMenu)
@@ -44,5 +47,18 @@ public class GameController : MonoBehaviour
     public void ExitGame()
     {
         Application.Quit();
+    }
+
+    public void MainMenu(GameObject mainMenu)
+    {
+        mainMenu.SetActive(true);
+        GameObject levelSelect = GameObject.Find("SelectMenu");
+        levelSelect.SetActive(false);
+    }
+
+    public void LoadLevel(string levelNumber)
+    {
+        string nextLevel = "Level" + levelNumber;
+        SceneManager.LoadScene(nextLevel);
     }
 }

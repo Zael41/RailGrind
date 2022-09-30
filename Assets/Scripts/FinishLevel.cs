@@ -34,6 +34,14 @@ public class FinishLevel : MonoBehaviour
 
             pickupsCollected.text = "Pickups collected: " + GameController.pickupCount + " / 19";
             Cursor.lockState = CursorLockMode.None;
+
+            string sceneName = SceneManager.GetActiveScene().name;
+            int levelNumber = int.Parse(sceneName.Substring(sceneName.Length - 1));
+            Debug.Log(GameController.pickupCount + " " + GameController.totalPickups[levelNumber - 1]);
+            if (GameController.pickupCount == GameController.totalPickups[levelNumber - 1])
+            {
+                GameController.allItemsObtained[levelNumber - 1] = true;
+            }
         }
     }
 

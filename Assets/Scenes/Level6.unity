@@ -51887,11 +51887,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerCam: {fileID: 397979383}
   finishCam: {fileID: 1057706151}
-  gameplayUI: {fileID: 0}
+  gameplayUI: {fileID: 1003972158}
   finishUI: {fileID: 2105284993}
   finalTime: {fileID: 1486858541}
   pickupsCollected: {fileID: 1553535941}
-  timerUI: {fileID: 0}
+  timerUI: {fileID: 1670185293}
 --- !u!65 &1254377915
 BoxCollider:
   m_ObjectHideFlags: 0

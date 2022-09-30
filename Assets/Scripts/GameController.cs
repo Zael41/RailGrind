@@ -8,7 +8,9 @@ public class GameController : MonoBehaviour
     public static GameController instance;
 
     public static int pickupCount;
-    public static bool[] itemsObtained;
+    public static bool[] allItemsObtained = new bool[8];
+    public static int[] allCupsObtained = new int[8] {0, 4, 3, 2, 4, 0, 1, 2};
+    public static int[] totalPickups = new int[] { 19, 19, 25, 24, 30, 16, 22, 26 };
 
     void Awake()
     {
@@ -16,6 +18,7 @@ public class GameController : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
+            SceneManager.sceneLoaded += OnSceneLoaded;
         }
         else
         {
@@ -25,40 +28,11 @@ public class GameController : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name != "MainMenu")
+        /*if (scene.name != "MainMenu")
         {
 
-        }
-    }
-
-    public void StartGame(GameObject levelSelect)
-    {
-        levelSelect.SetActive(true);
-        GameObject mainMenu = GameObject.Find("MainMenu");
-        mainMenu.SetActive(false);
-        //SceneManager.LoadScene("Level1");
-    }
-
-    public void Settings(GameObject settingsMenu)
-    {
-        settingsMenu.SetActive(true);
-    }
-
-    public void ExitGame()
-    {
-        Application.Quit();
-    }
-
-    public void MainMenu(GameObject mainMenu)
-    {
-        mainMenu.SetActive(true);
-        GameObject levelSelect = GameObject.Find("SelectMenu");
-        levelSelect.SetActive(false);
-    }
-
-    public void LoadLevel(string levelNumber)
-    {
-        string nextLevel = "Level" + levelNumber;
-        SceneManager.LoadScene(nextLevel);
+        }*/
+        pickupCount = 0;
+        //Debug.Log(allItemsObtained[0]);
     }
 }

@@ -82766,11 +82766,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerCam: {fileID: 397979383}
   finishCam: {fileID: 1057706151}
-  gameplayUI: {fileID: 0}
+  gameplayUI: {fileID: 113237298}
   finishUI: {fileID: 2105284993}
   finalTime: {fileID: 1486858541}
   pickupsCollected: {fileID: 1553535941}
-  timerUI: {fileID: 0}
+  timerUI: {fileID: 1279476860}
 --- !u!1001 &1843003753
 PrefabInstance:
   m_ObjectHideFlags: 0

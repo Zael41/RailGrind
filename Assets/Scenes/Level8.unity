@@ -25446,11 +25446,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerCam: {fileID: 397979383}
   finishCam: {fileID: 1057706151}
-  gameplayUI: {fileID: 0}
+  gameplayUI: {fileID: 322167053}
   finishUI: {fileID: 2105284993}
   finalTime: {fileID: 1486858541}
   pickupsCollected: {fileID: 1553535941}
-  timerUI: {fileID: 0}
+  timerUI: {fileID: 1031409233}
 --- !u!65 &1254377915
 BoxCollider:
   m_ObjectHideFlags: 0

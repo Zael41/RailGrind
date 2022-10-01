@@ -51,6 +51,10 @@ public class TimerUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+    }
+
+    public float getElapsed()
+    {
+        return elapsedTime;
     }
 }

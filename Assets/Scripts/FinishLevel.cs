@@ -19,6 +19,8 @@ public class FinishLevel : MonoBehaviour
 
     public TimerUI timerUI;
 
+    public Material[] cupMaterials;
+
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
@@ -42,6 +44,29 @@ public class FinishLevel : MonoBehaviour
             {
                 GameController.allItemsObtained[levelNumber - 1] = true;
             }
+
+            int cupObtained = 0;
+
+            if (timerUI.getElapsed() < GameController.authorTimes[levelNumber - 1])
+            {
+                cupObtained = 4;
+            }
+            else if (timerUI.getElapsed() < GameController.authorTimes[levelNumber - 1] + 5)
+            {
+                cupObtained = 3;
+            }
+            else if (timerUI.getElapsed() < GameController.authorTimes[levelNumber - 1] + 10)
+            {
+                cupObtained = 2;
+            }
+            else
+            {
+                cupObtained = 1;
+            }
+
+            if (cupObtained > GameController.allCupsObtained[levelNumber - 1]) GameController.allCupsObtained[levelNumber - 1] = cupObtained;
+            GameObject levelCup = GameObject.Find("CupHigh");
+            levelCup.GetComponent<MeshRenderer>().material = cupMaterials[cupObtained];
         }
     }
 

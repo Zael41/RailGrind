@@ -9,8 +9,9 @@ public class GameController : MonoBehaviour
 
     public static int pickupCount;
     public static bool[] allItemsObtained = new bool[8];
-    public static int[] allCupsObtained = new int[8] {0, 4, 3, 2, 4, 0, 1, 2};
-    public static int[] totalPickups = new int[] { 19, 19, 25, 24, 30, 16, 22, 26 };
+    public static int[] allCupsObtained = new int[8] {0, 0, 0, 0, 0, 0, 0, 0};
+    public static int[] totalPickups = new int[8] { 19, 19, 25, 24, 30, 16, 22, 26 };
+    public static int[] authorTimes = new int[8] { 30, 30, 30, 30, 30, 30, 30, 30 };
 
     void Awake()
     {

@@ -29,11 +29,21 @@ public class GameController : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        /*if (scene.name != "MainMenu")
-        {
-
-        }*/
         pickupCount = 0;
+        if (scene.name != "MainMenu")
+        {
+            string sceneName = SceneManager.GetActiveScene().name;
+            int levelNumber = int.Parse(sceneName.Substring(sceneName.Length - 1));
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            if (levelNumber > 1)
+            {
+                player.GetComponent<PlayerMovement>().dashAbility = true;
+            }
+            if (levelNumber > 4)
+            {
+                player.GetComponent<PlayerMovement>().doubleJumpAbility = true;
+            }
+        }
         //Debug.Log(allItemsObtained[0]);
     }
 }

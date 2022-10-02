@@ -39,6 +39,9 @@ public class PlayerMovement : MonoBehaviour
     Vector3 currentDirection;
     int targetPoint;
 
+    public bool dashAbility;
+    public bool doubleJumpAbility;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -119,13 +122,13 @@ public class PlayerMovement : MonoBehaviour
             velocity.y = upAxis.normalized.y * Mathf.Sqrt(jumpHeight * 2 * -upAxis.normalized.y * gravity);
         }
 
-        if (Input.GetButtonDown("Jump") && !isGrounded && doubleJump)
+        if (Input.GetButtonDown("Jump") && !isGrounded && doubleJump && doubleJumpAbility)
         {
             velocity.y = upAxis.normalized.y * Mathf.Sqrt(jumpHeight * 2 * -upAxis.normalized.y * gravity);
             doubleJump = false;
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) && !isDashing && !isGrounded)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && !isDashing && !isGrounded && dashAbility)
         {
             isDashing = true;
             StartCoroutine(dashCoroutine());
@@ -164,7 +167,7 @@ public class PlayerMovement : MonoBehaviour
         railGrinding = true;
     }
 
-    public void GravityField(Transform gravitySource)
+    public void GravityField()
     {
         gravity = -gravity;
         this.transform.Translate(Vector3.up * 1.75f, Space.Self);

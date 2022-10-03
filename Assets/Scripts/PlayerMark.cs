@@ -6,13 +6,13 @@ public class PlayerMark : MonoBehaviour
 {
     public GameObject[] pickupLights;
     bool activated;
-    bool waiting;
+    //bool waiting;
 
     // Start is called before the first frame update
     void Start()
     {
         activated = false;
-        waiting = false;
+        //waiting = false;
         pickupLights = GameObject.FindGameObjectsWithTag("PickupMark");
         foreach (GameObject light in pickupLights)
         {
@@ -33,7 +33,7 @@ public class PlayerMark : MonoBehaviour
     {
         foreach (GameObject light in pickupLights)
         {
-            light.SetActive(!activated);
+            if (light != null) light.SetActive(!activated);
         }
         activated = !activated;
     }

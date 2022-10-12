@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
-using Palmmedia.ReportGenerator.Core.Common;
 using System;
 
 public class FinishLevel : MonoBehaviour

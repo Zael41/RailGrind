@@ -38,12 +38,21 @@ public class MenuController : MonoBehaviour
 
     public void Settings(GameObject settingsMenu)
     {
+        GameObject mainMenu = GameObject.Find("MainMenu");
+        mainMenu.SetActive(false);
         settingsMenu.SetActive(true);
     }
 
     public void ExitGame()
     {
         Application.Quit();
+    }
+
+    public void Return(GameObject mainMenu)
+    {
+        GameObject settingsMenu = GameObject.Find("SettingsMenu");
+        mainMenu.SetActive(true);
+        settingsMenu.SetActive(false);
     }
 
     public void MainMenu(GameObject mainMenu)
